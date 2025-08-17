@@ -1,0 +1,167 @@
+📘 Day 1: React Basics (JSX, Components, Props, State)
+🎯 Theory Learned
+
+  
+1. JSX
+JSX allows writing HTML inside JavaScript.
+Example:
+const Welcome = () => <h1>Hello, Ashu!</h1>;
+
+2. Functional Components
+Small, reusable UI blocks.
+Easy to test and maintain.
+
+3. Props
+Used to pass data from parent → child components.
+Example: <Card title="React" description="A UI library" />
+
+4. State (useState)
+Used to track UI changes inside a component.
+Example: Toggling dark/light mode or showing/hiding sections.
+
+💼 Use Cases
+Industry Use Case:
+Component-based dashboards (e.g., LinkedIn job cards, product listings).
+
+Creative Use Case:
+Resume sections (Education, Skills) as separate components that accept props and update live.
+
+
+📝 Assignments Completed
+
+1.Card Component with Props
+
+function Card({ title, description }) {
+  return (
+    <div className="card">
+      <h2>{title}</h2>
+      <p>{description}</p>
+    </div>
+  );
+}
+
+
+2.Button Toggle with useState
+
+import React, { useState } from "react";
+
+export default function ToggleButton() {
+  const [showMore, setShowMore] = useState(false);
+
+  return (
+    <div>
+      <button onClick={() => setShowMore(!showMore)}>
+        {showMore ? "Show Less" : "Show More"}
+      </button>
+      {showMore && <p>This is the extra content!</p>}
+    </div>
+  );
+}
+
+
+🚀 Project Task – Resume Builder (Day 1)
+Goal
+
+Create a Resume Builder with input fields (Name, Email, Skills).
+Show live preview using props + state.
+
+
+
+
+app.jsx
+
+import React, { useState } from "react";
+import Form from "./Form";
+import Preview from "./Preview";
+
+export default function App() {
+  // State to store resume data
+  const [resumeData, setResumeData] = useState({
+    name: "",
+    email: "",
+    skills: ""
+  });
+
+  return (
+    <div style={{ display: "flex", gap: "2rem", padding: "2rem" }}>
+      {/* Input Form */}
+      <Form resumeData={resumeData} setResumeData={setResumeData} />
+
+      {/* Resume Preview */}
+      <Preview
+        name={resumeData.name}
+        email={resumeData.email}
+        skills={resumeData.skills}
+      />
+    </div>
+  );
+}
+
+
+form.jsx
+
+import React from "react";
+
+export default function Form({ resumeData, setResumeData }) {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setResumeData({ ...resumeData, [name]: value });
+  };
+
+  return (
+    <div style={{ width: "300px" }}>
+      <h2>Resume Form</h2>
+
+      <label>
+        Name: <br />
+        <input
+          type="text"
+          name="name"
+          value={resumeData.name}
+          onChange={handleChange}
+          placeholder="Enter your name"
+        />
+      </label>
+      <br /><br />
+
+      <label>
+        Email: <br />
+        <input
+          type="email"
+          name="email"
+          value={resumeData.email}
+          onChange={handleChange}
+          placeholder="Enter your email"
+        />
+      </label>
+      <br /><br />
+
+      <label>
+        Skills: <br />
+        <input
+          type="text"
+          name="skills"
+          value={resumeData.skills}
+          onChange={handleChange}
+          placeholder="e.g. React, JavaScript"
+        />
+      </label>
+    </div>
+  );
+}
+
+
+preview.jsx
+
+import React from "react";
+
+export default function Preview({ name, email, skills }) {
+  return (
+    <div style={{ border: "1px solid black", padding: "1rem", width: "300px" }}>
+      <h2>Resume Preview</h2>
+      <p><strong>Name:</strong> {name || "Enter your name"}</p>
+      <p><strong>Email:</strong> {email || "Enter your email"}</p>
+      <p><strong>Skills:</strong> {skills || "Enter your skills"}</p>
+    </div>
+  );
+}
