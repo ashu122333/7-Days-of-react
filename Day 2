@@ -1,0 +1,150 @@
+📅 Day 2: Events, Conditional Rendering, Lists
+-----------------------------------------------
+
+
+🎯 Theory
+
+🔹 Events in React
+React uses camelCase event handlers like onClick, onChange, onSubmit, etc.
+Instead of adding event listeners manually, you attach them as props.
+Example:
+<button onClick={() => alert("Clicked!")}>Click Me</button>
+
+
+💼 Industry Use Case:
+Handling search input changes in an e-commerce store (onChange event).
+🎨 Creative Use Case:
+A random quote generator button using onClick.
+
+
+🔹 Conditional Rendering
+Use JavaScript conditions to show or hide elements.
+Techniques:
+if statements
+Ternary operator (condition ? A : B)
+Logical AND (condition && element)
+
+Example:
+{isLoggedIn ? <p>Welcome back!</p> : <p>Please log in.</p>}
+
+💼 Industry Use Case:
+Show loading spinners while fetching data.
+
+🎨 Creative Use Case:
+Show/hide a motivational message when studying.
+
+
+🔹 Lists & Keys
+Render arrays using .map().
+Use a unique key prop for each item to help React track changes.
+
+Example:
+const skills = ["React", "Node", "CSS"];
+<ul>
+  {skills.map((skill, index) => (
+    <li key={index}>{skill}</li>
+  ))}
+</ul>
+
+
+💼 Industry Use Case:
+Render product listings with unique IDs.
+
+🎨 Creative Use Case:
+Render skills in a resume builder and allow adding/removing them.
+
+
+
+📝 Assignments
+
+Todo List
+Input field + button to add tasks.
+Render tasks as a list.
+Add a button next to each task to remove it.
+
+CODD:
+import { useState } from "react";
+
+export default function TodoList() {
+  const [task, setTask] = useState("");
+  const [tasks, setTasks] = useState([]);
+
+  const addTask = () => {
+    if (task.trim() === "") return;
+    setTasks([...tasks, task]);
+    setTask("");
+  };
+
+  const removeTask = (index) => {
+    setTasks(tasks.filter((_, i) => i !== index));
+  };
+
+  return (
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-2">Todo List</h2>
+
+      <input
+        type="text"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+        placeholder="Enter a task"
+        className="border p-2 mr-2 rounded"
+      />
+      <button
+        onClick={addTask}
+        className="bg-blue-500 text-white px-3 py-1 rounded"
+      >
+        Add
+      </button>
+
+      <ul className="mt-4">
+        {tasks.map((t, index) => (
+          <li key={index} className="flex justify-between items-center mb-2">
+            {t}
+            <button
+              onClick={() => removeTask(index)}
+              className="bg-red-500 text-white px-2 py-1 rounded"
+            >
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+
+
+Show/Hide Paragraph
+Create a button that toggles between showing and hiding a <p> element using state.
+
+CODE:
+import { useState } from "react";
+
+export default function ShowHide() {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-2">Show/Hide Paragraph</h2>
+      <button
+        onClick={() => setVisible(!visible)}
+        className="bg-green-500 text-white px-3 py-1 rounded"
+      >
+        {visible ? "Hide" : "Show"}
+      </button>
+
+      {visible && (
+        <p className="mt-4">
+          This is a paragraph that can be shown or hidden using state.
+        </p>
+      )}
+    </div>
+  );
+}
+
+
+
+
+
