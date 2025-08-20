@@ -1,0 +1,142 @@
+# 📅 Day 6 – Voice, MCQs & Job Trends
+
+## 🎓 Theory
+
+### 🎤 Speech Recognition (Web Speech API)
+- **Definition**: API that allows web apps to convert spoken input into text.
+- **How**: Uses `window.SpeechRecognition` (or `webkitSpeechRecognition`).
+- **Example**:
+  ```jsx
+  const recognition = new window.webkitSpeechRecognition();
+  recognition.onresult = (event) => {
+    console.log("You said:", event.results[0][0].transcript);
+  };
+  recognition.start();
+👉 Industry Use: Google Assistant, Alexa, AI-powered interviews.
+
+💡 Creative Use: AI Mock Interview bot where candidate answers by speaking.
+
+📝 MCQs with Controlled Inputs
+Definition: Multiple-choice questions using radio buttons (controlled state in React).
+
+Why: Helps track user answers and calculate score.
+
+Example:
+
+jsx
+Copy
+Edit
+const [answer, setAnswer] = useState("");
+
+return (
+  <div>
+    <p>Q: What is React?</p>
+    <label>
+      <input
+        type="radio"
+        value="library"
+        checked={answer === "library"}
+        onChange={(e) => setAnswer(e.target.value)}
+      />
+      A JavaScript library
+    </label>
+    <label>
+      <input
+        type="radio"
+        value="framework"
+        checked={answer === "framework"}
+        onChange={(e) => setAnswer(e.target.value)}
+      />
+      A Framework
+    </label>
+  </div>
+);
+👉 Industry Use: Online exams, quizzes, and surveys.
+
+💡 Creative Use: Domain-specific mock interview quizzes.
+
+📊 Charts (Recharts / Chart.js)
+Definition: Libraries for creating interactive data visualizations in React.
+
+Why: To analyze job trends or skill demand.
+
+Example (Recharts):
+
+jsx
+Copy
+Edit
+import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+
+const data = [
+  { skill: "React", demand: 80 },
+  { skill: "Node.js", demand: 60 },
+  { skill: "Python", demand: 90 },
+];
+
+export default function JobTrends() {
+  return (
+    <BarChart width={400} height={300} data={data}>
+      <CartesianGrid stroke="#ccc" />
+      <XAxis dataKey="skill" />
+      <YAxis />
+      <Tooltip />
+      <Bar dataKey="demand" fill="#8884d8" />
+    </BarChart>
+  );
+}
+👉 Industry Use: LinkedIn job market analysis dashboards.
+
+💡 Creative Use: Personalized job-skill growth charts for students.
+
+📝 Assignments
+Build a Multiple-Choice Quiz
+
+Create 3–5 questions with radio buttons.
+
+Track score and display result.
+
+Implement Speech-to-Text
+
+Use Web Speech API to capture voice and convert to text.
+
+Display recognized text in a <p> element.
+
+🚀 Project Task
+AI Interview (Voice Input)
+
+Add a mic button.
+
+When clicked, capture user’s answer using Speech Recognition.
+
+Display transcribed answer in the resume builder.
+
+jsx
+Copy
+Edit
+const [transcript, setTranscript] = useState("");
+
+const startListening = () => {
+  const recognition = new window.webkitSpeechRecognition();
+  recognition.onresult = (event) => {
+    setTranscript(event.results[0][0].transcript);
+  };
+  recognition.start();
+};
+
+return (
+  <div>
+    <button
+      onClick={startListening}
+      className="bg-blue-500 text-white p-2 rounded"
+    >
+      🎤 Start Answering
+    </button>
+    <p className="mt-2 text-gray-700">Your Answer: {transcript}</p>
+  </div>
+);
+Job Trends Dashboard
+
+Add a JobTrends component with a bar chart showing demand for different skills.
+
+Use dummy data first, then later integrate with API.
+
