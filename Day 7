@@ -1,0 +1,127 @@
+# 📅 Day 7 – Integration & Analysis
+
+## 🎓 Theory
+
+### 🗂️ State Management (React Context)
+- **Definition**: A way to share state across multiple components without prop drilling.
+- **How**: Wrap your app with `Context.Provider` and access global state anywhere with `useContext`.
+- **Example**:
+  ```jsx
+  import { createContext, useState, useContext } from "react";
+
+  const ResumeContext = createContext();
+
+  export function ResumeProvider({ children }) {
+    const [resume, setResume] = useState({});
+    return (
+      <ResumeContext.Provider value={{ resume, setResume }}>
+        {children}
+      </ResumeContext.Provider>
+    );
+  }
+
+  export function useResume() {
+    return useContext(ResumeContext);
+  }
+👉 Industry Use: LinkedIn uses global state for user profile, job preferences, and activity feed.
+
+💡 Creative Use: “Career AI Buddy” → Stores all answers, resume drafts, and quiz results to show a strengths/weaknesses analysis.
+
+🔄 Combining Features
+Resume Builder (drafts + dynamic forms).
+
+AI Cover Letter (modal).
+
+Voice AI Interview (speech recognition).
+
+MCQs (quiz for domain prep).
+
+Job Trends Dashboard (charts).
+
+All work together in one unified flow → A mini Career Assistant App.
+
+⚠️ Error & Loading Handling
+Always give feedback when fetching data (spinners, messages).
+
+Show fallback if API fails.
+
+Loading Spinner Example:
+
+jsx
+Copy
+Edit
+function Loader() {
+  return <div className="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full"></div>;
+}
+Error Boundary (basic idea):
+
+jsx
+Copy
+Edit
+try {
+  // API call
+} catch (error) {
+  setError("⚠️ Failed to fetch data");
+}
+📝 Assignments
+Add Loading Spinner
+
+Show spinner while fetching job trends or AI cover letter.
+
+Hide when data is loaded.
+
+Use Context for Global Data
+
+Store resume data + planner data in Context.
+
+Access the data across Resume, Planner, and AI Interview components.
+
+🚀 Project Task
+Integrate Everything
+
+Wrap app in ResumeProvider.
+
+Resume Builder, MCQs, AI Interview, and Job Trends should all use shared state.
+
+Final Dashboard / Analysis
+
+After user completes Resume, Quiz, and Mock Interview:
+
+Show Summary Page with:
+
+Resume Draft
+
+Cover Letter
+
+MCQ Score
+
+Interview Transcript (from voice)
+
+Job Trends Graph
+
+Add Strengths & Weaknesses Analysis (basic rule-based or hardcoded for now).
+
+Example (Summary Page):
+
+jsx
+Copy
+Edit
+import { useResume } from "./ResumeContext";
+
+export default function Summary() {
+  const { resume } = useResume();
+  return (
+    <div className="p-6 bg-white rounded-xl shadow-lg">
+      <h2 className="text-2xl font-bold mb-4">Career Summary</h2>
+      <p><strong>Name:</strong> {resume.name}</p>
+      <p><strong>Education:</strong> {resume.education}</p>
+      <p><strong>Skills:</strong> {resume.skills}</p>
+      <hr className="my-4" />
+      <h3 className="text-xl font-semibold">Insights:</h3>
+      <ul className="list-disc ml-6">
+        <li>💪 Strong in technical skills</li>
+        <li>⚠️ Needs improvement in communication (based on interview answers)</li>
+      </ul>
+    </div>
+  );
+}
